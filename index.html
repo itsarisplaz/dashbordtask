@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Внутренний дашборд мастерской бренда После Пяти">
+  <title>Мастерская «После Пяти»</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2320251d'/%3E%3Cpath d='M32 12c-8 13-14 18-14 27a14 14 0 0 0 28 0c0-9-6-14-14-27Z' fill='%23c8a45d'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Основная навигация">
+    <div class="brand-mark"><span>После</span><strong>Пяти</strong><small>МАСТЕРСКАЯ</small></div>
+    <nav class="nav-list">
+      <button class="nav-item active" data-view="today">◷ <span>Сегодня</span></button>
+      <button class="nav-item" data-view="orders">▣ <span>Заказы</span></button>
+      <button class="nav-item" data-view="production">◈ <span>Производство</span></button>
+      <button class="nav-item" data-view="inventory">▤ <span>Склад</span></button>
+    </nav>
+    <div class="sidebar-footer"><span class="status-dot"></span> Рабочий режим<br><small>Санкт-Петербург</small></div>
+  </aside>
+  <main class="main-content">
+    <header class="topbar"><button class="mobile-menu" aria-label="Открыть меню" aria-expanded="false">☰</button><div class="breadcrumb">Мастерская <span>/</span> <strong id="view-label">Сегодня</strong></div><div class="profile"><span class="avatar">А</span><span>Арина</span><small>Владелица</small></div></header>
+    <div id="view-container"></div>
+  </main>
+</div>
+<div class="mobile-overlay" aria-hidden="true"></div>
+<footer class="site-credit">Сделано Ариной Головановой · 2026 · с помощью OpenAI Codex</footer>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script type="module" src="./main.js"></script>
+</body></html>
