@@ -1,4 +1,4 @@
-import './main2.js?v=20261006';
+import './main2.js?v=20261007';
 /* Archived first draft: retained only while the implementation is reviewed.
 import{Dashboard}from'./js/Dashboard.js';
 const root=document.querySelector('#view-container'),dashboard=new Dashboard({root});
