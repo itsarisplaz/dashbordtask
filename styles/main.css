@@ -22,3 +22,4 @@
 .inventory-purpose,.production-board-note{display:none!important}
 #add-widget,.widget-menu{display:none!important}
 .sidebar{overflow-y:auto}
+.dashboard-slot{align-self:start}
