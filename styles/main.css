@@ -21,3 +21,4 @@
 .stale-data{color:#a2604f!important}
 .inventory-purpose,.production-board-note{display:none!important}
 #add-widget,.widget-menu{display:none!important}
+.sidebar{overflow-y:auto}

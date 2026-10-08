@@ -272,12 +272,20 @@ const calendarEvents = {
   '2026-10-01': [{ type: 'Отправка', title: 'Отправить заказы недели' }],
   '2026-10-03': [{ type: 'Съёмка', title: 'Предметная съёмка свечей в гипсе' }],
   '2026-10-06': [{ type: 'Закупки', title: 'Заказать ароматизаторы и воск' }],
+  '2026-10-08': [{ type: 'Склад', title: 'Проверить остатки банок и фитилей' }, { type: 'Задача', title: 'Обновить список закупок' }],
+  '2026-10-09': [{ type: 'Производство', title: 'Залить партию «Золотой час»' }],
   '2026-10-10': [{ type: 'Публикация', title: 'Публикация подборки «Тёплый дом»' }],
+  '2026-10-12': [{ type: 'Упаковка', title: 'Подготовить коробки и тишью для заказов' }],
   '2026-10-14': [{ type: 'Производство', title: 'Заливка партии свечей в банках 200 мл' }],
+  '2026-10-15': [{ type: 'Проверка', title: 'Проверить качество и время горения партии' }],
   '2026-10-17': [{ type: 'Контент', title: 'Подготовить письма для рассылки' }],
+  '2026-10-18': [{ type: 'Отправка', title: 'Упаковать и передать заказы в СДЭК' }],
   '2026-10-20': [{ type: 'Поставка', title: 'Получение партии упаковки' }],
+  '2026-10-22': [{ type: 'Закупки', title: 'Сравнить цены на банки 160 и 200 мл' }],
   '2026-10-24': [{ type: 'Съёмка', title: 'Съёмка зимней коллекции' }],
+  '2026-10-26': [{ type: 'Контент', title: 'Подготовить пост о процессе изготовления' }],
   '2026-10-27': [{ type: 'Склад', title: 'Проверить остатки перед запуском' }],
+  '2026-10-29': [{ type: 'Планирование', title: 'Собрать список заказов на ноябрь' }],
   '2026-10-30': [{ type: 'Планирование', title: 'Собрать план ноября' }],
 };
 
@@ -287,8 +295,9 @@ function calendarKey(date) {
 
 function calendarView() {
   setPage(`<div class="page-heading"><div><p class="eyebrow">Планы мастерской</p><h1>Календарь</h1><p class="date-line">Производство, поставки, съёмки и запуски коллекций</p></div><button class="primary-button" id="calendar-today">Сегодня</button></div><div class="calendar-layout"><section class="widget calendar-widget"><div class="calendar-toolbar"><button class="calendar-arrow" id="calendar-prev" aria-label="Предыдущий месяц">←</button><h2 id="calendar-month">Сентябрь 2026</h2><button class="calendar-arrow" id="calendar-next" aria-label="Следующий месяц">→</button></div><div class="calendar-weekdays"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div><div class="calendar-grid" id="calendar-grid"></div><div class="calendar-legend"><span><i class="legend-dot gold"></i>производство и задачи</span><span><i class="legend-dot green"></i>события и запуски</span></div></section><aside class="widget selected-day"><div class="widget-head"><div><p class="eyebrow">Выбранный день</p><h2 class="widget-title" id="selected-day-title">Сегодня</h2></div><div class="selected-day-actions"><span class="pill gold" id="selected-day-count">2 события</span><button class="mini-link" id="add-calendar-task" type="button">＋ Добавить задачу</button></div></div><div id="selected-day-content"></div><form class="calendar-task-form" id="calendar-task-form" hidden><label for="calendar-task-input">Новая задача<input id="calendar-task-input" name="task" placeholder="Например: проверить упаковку" autocomplete="off"></label><button class="primary-button" type="submit">Сохранить</button></form></aside></div>`);
-  let viewDate = new Date(2026, 8, 1);
-  let selectedKey = '2026-09-18';
+  const todayDate = new Date();
+  let viewDate = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+  let selectedKey = calendarKey(todayDate);
 
   const renderSelectedDay = () => {
     const date = new Date(`${selectedKey}T12:00:00`);
@@ -341,7 +350,7 @@ function calendarView() {
       const key = calendarKey(date);
       const events = calendarEvents[key] || [];
       const cell = document.createElement('button');
-      cell.className = `calendar-cell${key === selectedKey ? ' selected' : ''}${key === '2026-09-18' ? ' today' : ''}`;
+      cell.className = `calendar-cell${key === selectedKey ? ' selected' : ''}${key === calendarKey(todayDate) ? ' today' : ''}`;
       cell.type = 'button';
       cell.setAttribute('aria-label', `${day} ${monthName}${events.length ? `, событий: ${events.length}` : ''}`);
       const number = document.createElement('strong');
@@ -360,7 +369,7 @@ function calendarView() {
 
   document.querySelector('#calendar-prev').addEventListener('click', () => { viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1); renderCalendar(); });
   document.querySelector('#calendar-next').addEventListener('click', () => { viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1); renderCalendar(); });
-  document.querySelector('#calendar-today').addEventListener('click', () => { viewDate = new Date(2026, 8, 1); selectedKey = '2026-09-18'; renderCalendar(); renderSelectedDay(); });
+  document.querySelector('#calendar-today').addEventListener('click', () => { viewDate = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1); selectedKey = calendarKey(todayDate); renderCalendar(); renderSelectedDay(); });
   const taskForm = document.querySelector('#calendar-task-form');
   const taskInput = document.querySelector('#calendar-task-input');
   document.querySelector('#add-calendar-task').addEventListener('click', () => { taskForm.hidden = !taskForm.hidden; if (!taskForm.hidden) taskInput.focus(); });
